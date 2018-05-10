@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-5">
+    <app-men-shirt-list
+    (shirtsWasSelected)="selectedShirt = $event"></app-men-shirt-list>
+  </div>
+  
+  <div class="col-md-7">
+    <app-men-shirt-details
+    *ngIf="selectedShirt; else infoText"
+    [shirts] = "selectedShirt"
+    ></app-men-shirt-details>
+    <ng-template #infoText>Please select the shirts</ng-template>
+  </div>
+</div>
