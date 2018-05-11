@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MenShirts } from '../mensirts.model';
+import { MenShirtsService } from '../men-shirts.service';
 
 @Component({
   selector: 'app-men-shirt-details',
@@ -8,9 +9,13 @@ import { MenShirts } from '../mensirts.model';
 })
 export class MenShirtDetailsComponent implements OnInit {
   @Input() shirts: MenShirts;
-  constructor() { }
+
+  constructor(private menShirtsService: MenShirtsService) { }
 
   ngOnInit() {
+  }
+  onAddtoShoppingList() {
+    this.menShirtsService.addShirtCategoriesToShoppingList(this.shirts.shirtcategories);
   }
 
 }

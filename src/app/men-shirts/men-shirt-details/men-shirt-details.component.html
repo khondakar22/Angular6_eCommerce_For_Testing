@@ -16,7 +16,7 @@
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a href="#">To shopping list</a></li>
+        <li><a (click)="onAddtoShoppingList()" style="cursor: pointer;">To shopping list</a></li>
         <li><a href="#">Edit Shirts List</a></li>
         <li><a href="#">Delete Shirt List</a></li>
       </ul>
@@ -30,6 +30,12 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    Shirts
+  <ul class="list-group">
+    <li 
+    class="list-group-item"
+    *ngFor ="let shirtscategories of shirts.shirtcategories ">
+      {{shirtscategories.name}}-{{shirtscategories.amount}}Pcs
+    </li>
+  </ul>
   </div>
 </div>
