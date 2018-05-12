@@ -5,7 +5,7 @@ import { ShoppingListService } from '../shopping-list/shopping-list.service';
 
 @Injectable()
 export class MenShirtsService {
-  menShirtSelected = new EventEmitter<MenShirts>();
+  // menShirtSelected = new EventEmitter<MenShirts>();
   private menShirts: MenShirts[] = [
     new MenShirts(
       'Ralph Lauren',
