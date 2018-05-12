@@ -9,15 +9,12 @@ import { MenShirtsService } from './men-shirts.service';
   providers: [MenShirtsService]
 })
 export class MenShirtsComponent implements OnInit {
- selectedShirt: MenShirts;
-  constructor( private menShirtsSrv: MenShirtsService) { }
+  selectedShirt: MenShirts;
+  constructor(private menShirtsSrv: MenShirtsService) {}
 
   ngOnInit() {
-    this.menShirtsSrv.menShirtSelected.subscribe(
-      (menShirts: MenShirts) => {
-        this.selectedShirt =  menShirts;
-      }
-    );
+    this.menShirtsSrv.menShirtSelected.subscribe((menShirts: MenShirts) => {
+      this.selectedShirt = menShirts;
+    });
   }
-
 }

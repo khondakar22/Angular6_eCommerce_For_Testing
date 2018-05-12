@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <button class="btn btn-success">New Shirts</button>
+    <button class="btn btn-success" (click)="onNewShirt()">New Shirts</button>
   </div>
 </div>
 <hr>
@@ -12,8 +12,9 @@
     (shirtsSelected)="onShirstSeleted(shirtsEl)"
     ></app-men-shirt-item> -->
     <app-men-shirt-item 
-    *ngFor="let shirtsEl of menShirts" 
+    *ngFor="let shirtsEl of menShirts; let i = index" 
     [shirts]="shirtsEl"
+    [index] ="i" 
     ></app-men-shirt-item>
   </div>
 </div>

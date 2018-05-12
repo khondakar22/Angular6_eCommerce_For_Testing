@@ -1,7 +1,14 @@
-<a
-href="#"
+<!-- <a
+style="cursor: pointer;"
 class="list-group-item clearfix"
 (click)="onSelected()"
+> -->
+<!-- remove the onSelected click listener -->
+<a
+style="cursor: pointer;"
+class="list-group-item clearfix"
+[routerLink]="[index]"
+routerLinkActive ="active"
 >
 <div class="pull-left">
   <h4 class="list-group-item-heading">{{shirts.name}}</h4>

@@ -13,7 +13,7 @@ export class ShoppingListComponent implements OnInit {
   // ];
   shirtcategories: ShirtCategories[];
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService) {}
 
   ngOnInit() {
     this.shirtcategories = this.slService.getShirtcategories();
@@ -27,5 +27,4 @@ export class ShoppingListComponent implements OnInit {
   // onShirtsAdded(shirts: ShirtCategories) {
   //   this.shirtcategories.push(shirts);
   // }
-
 }

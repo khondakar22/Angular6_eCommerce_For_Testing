@@ -1,13 +1,11 @@
-import {
-  ShirtCategories
-} from '../shared/shirtcategories.model';
+import { ShirtCategories } from '../shared/shirtcategories.model';
 import { EventEmitter } from '@angular/core';
 
 export class ShoppingListService {
-    shirtsCategoriesChanged = new EventEmitter<ShirtCategories[]>();
+  shirtsCategoriesChanged = new EventEmitter<ShirtCategories[]>();
   private shirtcategories: ShirtCategories[] = [
     new ShirtCategories('Full Sleve', 5),
-    new ShirtCategories('Half Seleve', 10),
+    new ShirtCategories('Half Seleve', 10)
   ];
 
   getShirtcategories() {
@@ -15,8 +13,8 @@ export class ShoppingListService {
   }
 
   addShirtCategories(shirtCategories: ShirtCategories) {
-      this.shirtcategories.push(shirtCategories);
-      this.shirtsCategoriesChanged.emit(this.shirtcategories.slice());
+    this.shirtcategories.push(shirtCategories);
+    this.shirtsCategoriesChanged.emit(this.shirtcategories.slice());
   }
   addShirtscategories(shirtCategories: ShirtCategories[]) {
     // for (const shirtItem of shirtCategories) {
@@ -25,5 +23,4 @@ export class ShoppingListService {
     this.shirtcategories.push(...shirtCategories);
     this.shirtsCategoriesChanged.emit(this.shirtcategories.slice());
   }
-
 }

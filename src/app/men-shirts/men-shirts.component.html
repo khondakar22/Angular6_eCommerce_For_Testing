@@ -4,12 +4,13 @@
     (shirtsWasSelected)="selectedShirt = $event"></app-men-shirt-list> -->
     <app-men-shirt-list></app-men-shirt-list>
   </div>
-  
+
   <div class="col-md-7">
-    <app-men-shirt-details
+    <!-- <app-men-shirt-details
     *ngIf="selectedShirt; else infoText"
     [shirts] = "selectedShirt"
     ></app-men-shirt-details>
-    <ng-template #infoText>Please select the shirts</ng-template>
+    <ng-template #infoText>Please select the shirts</ng-template> -->
+    <router-outlet></router-outlet>
   </div>
 </div>

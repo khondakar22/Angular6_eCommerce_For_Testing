@@ -1,4 +1,11 @@
-import { Component, OnInit, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  EventEmitter,
+  Output
+} from '@angular/core';
 import { ShirtCategories } from '../../shared/shirtcategories.model';
 import { ShoppingListService } from '../shopping-list.service';
 
@@ -12,17 +19,15 @@ export class ShoppingEditComponent implements OnInit {
   @ViewChild('amountInput') amountInputRef: ElementRef;
   // @Output() shirtsAdded = new EventEmitter<ShirtCategories>();
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onAddItem() {
     const shirtsName = this.nameInputRef.nativeElement.value;
-    const shirtsAmount =  this.amountInputRef.nativeElement.value;
+    const shirtsAmount = this.amountInputRef.nativeElement.value;
     const newShirtCategory = new ShirtCategories(shirtsName, shirtsAmount);
     // this.shirtsAdded.emit(newShirtCategory);
     this.slService.addShirtCategories(newShirtCategory);
   }
-
 }

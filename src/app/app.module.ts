@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MenShirtsComponent } from './men-shirts/men-shirts.component';
@@ -12,7 +11,9 @@ import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
-
+import { ApproutingModule } from './app-routing.module';
+import { MenShirtsStartComponent } from './men-shirts/men-shirts-start/men-shirts-start.component';
+import { MenShirtsEditComponent } from './men-shirts/men-shirts-edit/men-shirts-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,12 +25,12 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
     MenShirtItemComponent,
     ShoppingListComponent,
     ShoppingEditComponent,
-    DropdownDirective
+    DropdownDirective,
+    MenShirtsStartComponent,
+    MenShirtsEditComponent
   ],
-  imports: [
-    BrowserModule
-  ],
+  imports: [BrowserModule, ApproutingModule],
   providers: [ShoppingListService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

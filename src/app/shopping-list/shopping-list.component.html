@@ -4,13 +4,10 @@
     <app-shopping-edit></app-shopping-edit>
 
     <hr>
-   <ul class="list-group">
-     <a style="cursor: pointer" 
-        class="list-group-item"
-        *ngFor="let shirtcategories of shirtcategories"
-      >
-      {{shirtcategories.name}}({{shirtcategories.amount}})
+    <ul class="list-group">
+      <a style="cursor: pointer" class="list-group-item" *ngFor="let shirtcategories of shirtcategories">
+        {{shirtcategories.name}}({{shirtcategories.amount}})
       </a>
-   </ul>
+    </ul>
   </div>
 </div>
