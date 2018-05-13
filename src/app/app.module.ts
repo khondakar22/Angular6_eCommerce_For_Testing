@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -14,7 +16,7 @@ import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { ApproutingModule } from './app-routing.module';
 import { MenShirtsStartComponent } from './men-shirts/men-shirts-start/men-shirts-start.component';
 import { MenShirtsEditComponent } from './men-shirts/men-shirts-edit/men-shirts-edit.component';
-
+import { MenShirtsService } from './men-shirts/men-shirts.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,8 +31,8 @@ import { MenShirtsEditComponent } from './men-shirts/men-shirts-edit/men-shirts-
     MenShirtsStartComponent,
     MenShirtsEditComponent
   ],
-  imports: [BrowserModule, ApproutingModule],
-  providers: [ShoppingListService],
+  imports: [BrowserModule, ApproutingModule, FormsModule, HttpModule, ReactiveFormsModule],
+  providers: [ShoppingListService, MenShirtsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

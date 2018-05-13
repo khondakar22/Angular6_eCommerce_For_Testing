@@ -25,6 +25,11 @@ export class MenShirtListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.menShirtsSrvice.shirtsItemChanged.subscribe(
+      (newShirts: MenShirts[]) => {
+        this.menShirts = newShirts;
+      }
+    );
     this.menShirts = this.menShirtsSrvice.getMenShirts();
   }
 

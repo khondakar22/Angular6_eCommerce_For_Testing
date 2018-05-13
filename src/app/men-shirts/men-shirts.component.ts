@@ -5,8 +5,7 @@ import { MenShirtsService } from './men-shirts.service';
 @Component({
   selector: 'app-men-shirts',
   templateUrl: './men-shirts.component.html',
-  styleUrls: ['./men-shirts.component.css'],
-  providers: [MenShirtsService]
+  styleUrls: ['./men-shirts.component.css']
 })
 export class MenShirtsComponent implements OnInit {
   selectedShirt: MenShirts;

@@ -2,10 +2,12 @@ import { MenShirts } from './mensirts.model';
 import { EventEmitter, Injectable } from '@angular/core';
 import { ShirtCategories } from '../shared/shirtcategories.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class MenShirtsService {
   // menShirtSelected = new EventEmitter<MenShirts>();
+  shirtsItemChanged = new Subject<MenShirts[]>();
   private menShirts: MenShirts[] = [
     new MenShirts(
       'Ralph Lauren',
@@ -31,5 +33,17 @@ export class MenShirtsService {
   }
   getMenShirt(index: number) {
     return this.menShirts[index];
+  }
+  addShirtsItem(shirts: MenShirts) {
+    this.menShirts.push(shirts);
+    this.shirtsItemChanged.next(this.menShirts.slice());
+  }
+  updateShirtsItem(index: number, newShirts: MenShirts) {
+    this.menShirts[index] = newShirts;
+    this.shirtsItemChanged.next(this.menShirts.slice());
+  }
+  deleteShirtsItem(index: number) {
+    this.menShirts.splice(index, 1);
+    this.shirtsItemChanged.next(this.menShirts.slice());
   }
 }

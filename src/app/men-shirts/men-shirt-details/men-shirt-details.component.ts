@@ -38,4 +38,9 @@ export class MenShirtDetailsComponent implements OnInit {
     this.router.navigate(['edit'], { relativeTo: this.route });
     // this.router.navigate(['../', this.id, 'edit'], { relativeTo: this.route });
   }
+
+  onDeleteShirts() {
+    this.menShirtsService.deleteShirtsItem(this.id);
+    this.router.navigate(['/menshirts']);
+  }
 }
