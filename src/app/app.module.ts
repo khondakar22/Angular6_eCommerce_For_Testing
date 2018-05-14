@@ -17,6 +17,11 @@ import { ApproutingModule } from './app-routing.module';
 import { MenShirtsStartComponent } from './men-shirts/men-shirts-start/men-shirts-start.component';
 import { MenShirtsEditComponent } from './men-shirts/men-shirts-edit/men-shirts-edit.component';
 import { MenShirtsService } from './men-shirts/men-shirts.service';
+import { DataStorageService } from './shared/data-storage.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth-guard.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,10 +34,20 @@ import { MenShirtsService } from './men-shirts/men-shirts.service';
     ShoppingEditComponent,
     DropdownDirective,
     MenShirtsStartComponent,
-    MenShirtsEditComponent
+    MenShirtsEditComponent,
+    SignupComponent,
+    SigninComponent
   ],
-  imports: [BrowserModule, ApproutingModule, FormsModule, HttpModule, ReactiveFormsModule],
-  providers: [ShoppingListService, MenShirtsService],
+  imports: [  BrowserModule,
+              ApproutingModule,
+              FormsModule,
+              HttpModule,
+              ReactiveFormsModule],
+  providers: [ShoppingListService,
+              MenShirtsService,
+              DataStorageService,
+              AuthService,
+              AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

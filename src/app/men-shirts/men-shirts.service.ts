@@ -25,6 +25,10 @@ export class MenShirtsService {
 
   constructor(private slService: ShoppingListService) {}
 
+  setShirts(mShirts: MenShirts[]) {
+    this.menShirts = mShirts;
+    this.shirtsItemChanged.next(this.menShirts.slice());
+  }
   getMenShirts() {
     return this.menShirts.slice();
   }
