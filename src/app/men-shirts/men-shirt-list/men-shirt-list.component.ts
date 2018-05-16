@@ -1,13 +1,14 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { MenShirts } from '../mensirts.model';
 import { MenShirtsService } from '../men-shirts.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 @Component({
   selector: 'app-men-shirt-list',
   templateUrl: './men-shirt-list.component.html',
   styleUrls: ['./men-shirt-list.component.css']
 })
-export class MenShirtListComponent implements OnInit {
+export class MenShirtListComponent implements OnInit, OnDestroy {
   // @Output() shirtsWasSelected = new EventEmitter<MenShirts>();
   //   menShirts: MenShirts[] = [
   //   new MenShirts('Ralph Lauren',
@@ -18,6 +19,7 @@ export class MenShirtListComponent implements OnInit {
   //   'http://www.ralphlauren.de/graphics/product_images/pPOLO2-7770055_alternate1_v400.jpg')
   // ];
   menShirts: MenShirts[];
+  subscription: Subscription;
   constructor(
     private menShirtsSrvice: MenShirtsService,
     private router: Router,
@@ -25,7 +27,7 @@ export class MenShirtListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.menShirtsSrvice.shirtsItemChanged.subscribe(
+    this.subscription = this.menShirtsSrvice.shirtsItemChanged.subscribe(
       (newShirts: MenShirts[]) => {
         this.menShirts = newShirts;
       }
@@ -39,4 +41,8 @@ export class MenShirtListComponent implements OnInit {
   onNewShirt() {
     this.router.navigate(['new'], { relativeTo: this.route });
   }
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }

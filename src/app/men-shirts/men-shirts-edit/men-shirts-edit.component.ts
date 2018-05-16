@@ -27,27 +27,28 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
       this.initForm();
     });
   }
+  // onSubmit() {
+  //   const newShirtsItem = new MenShirts(this.menShirtsForm.value['name'],
+  //                                       this.menShirtsForm.value['description'],
+  //                                       this.menShirtsForm.value['imagePath'],
+  //                                       this.menShirtsForm.value['shirtCategires']);
+  //   console.log(this.menShirtsForm);
+  //   if (this.editMode) {
+  //     this.menShirtService.updateShirtsItem(this.id, newShirtsItem);
+  //   } else {
+  //     this.menShirtService.addShirtsItem(newShirtsItem);
+  //   }
+  //   this.onCancle();
+  // }
+// above was the Modeling way and the below is the reactive way
   onSubmit() {
-    const newShirtsItem = new MenShirts(this.menShirtsForm.value['name'],
-                                        this.menShirtsForm.value['description'],
-                                        this.menShirtsForm.value['imagePath'],
-                                        this.menShirtsForm.value['shirtCategires']);
-    console.log(this.menShirtsForm);
     if (this.editMode) {
-      this.menShirtService.updateShirtsItem(this.id, newShirtsItem);
+      this.menShirtService.updateShirtsItem(this.id, this.menShirtsForm.value);
     } else {
-      this.menShirtService.addShirtsItem(newShirtsItem);
+      this.menShirtService.addShirtsItem(this.menShirtsForm.value);
     }
     this.onCancle();
   }
-// above was the Modeling way and the below is the reactive way
-  // onSubmit() {
-  //   if (this.editMode) {
-  //     this.menShirtService.updateShirtsItem(this.id, this.menShirtsForm.value);
-  //   } else {
-  //     this.menShirtService.addShirtsItem(this.menShirtsForm.value);
-  //   }
-  // }
   onCancle() {
     this.router.navigate(['../'], {relativeTo: this.route});
   }
@@ -63,7 +64,9 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
   onDeleteShirtsCategories(index: number) {
     (<FormArray>this.menShirtsForm.get('shirtCategires')).removeAt(index);
   }
-
+  getControls() {
+    return (<FormArray>this.menShirtsForm.get('shirtCategires')).controls;
+  }
   private initForm() {
     let shirtsName = '';
     let shirtsImagePath = '';
