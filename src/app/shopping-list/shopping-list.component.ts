@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShirtCategories } from '../shared/shirtcategories.model';
 import { ShoppingListService } from './shopping-list.service';
 // import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import * as fromShoppingList from './ngrx-store/shopping-list.reducers';
+// import * as fromShoppingList from './ngrx-store/shopping-list.reducers';
 import * as ShoppingListActions from './ngrx-store/shopping-list.action';
+import * as fromApp from '../ngrx-app-store/app.reducers';
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
@@ -27,7 +28,7 @@ export class ShoppingListComponent implements OnInit {
 
   constructor(
     private slService: ShoppingListService,
-    private store: Store<fromShoppingList.Appstate>
+    private store: Store<fromApp.Appstate>
   ) {}
 
   ngOnInit() {

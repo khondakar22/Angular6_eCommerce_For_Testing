@@ -13,7 +13,8 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../ngrx-store/shopping-list.action';
-import * as fromShoppingList from '../ngrx-store/shopping-list.reducers';
+// import * as fromShoppingList from '../ngrx-store/shopping-list.reducers';
+import * as fromApp from '../../ngrx-app-store/app.reducers';
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
@@ -33,7 +34,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   //   private store: Store<{ shoppingList: { shirtcategories: ShirtCategories[] } }>) {}
 
   constructor(private slService: ShoppingListService,
-    private store: Store<fromShoppingList.Appstate>) {}
+    private store: Store<fromApp.Appstate>) {}
 
   ngOnInit() {
     this.subscription = this.store.select('shoppingList').subscribe(

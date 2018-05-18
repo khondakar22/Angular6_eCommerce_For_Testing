@@ -2,9 +2,6 @@ import * as ShoppingListActions from './shopping-list.action';
 
 import { ShirtCategories } from '../../shared/shirtcategories.model';
 
-export interface Appstate {
-  shoppingList: State;
-}
 
 export interface State {
   shirtcategories: ShirtCategories[];
@@ -30,17 +27,18 @@ export function shoppingListReducer(
         ...state,
         shirtcategories: [...state.shirtcategories, action.payload]
       };
-      case ShoppingListActions.ADD_SHIRTCATEGORIES:
+    case ShoppingListActions.ADD_SHIRTCATEGORIES:
       return {
         ...state,
         shirtcategories: [...state.shirtcategories, ...action.payload]
       };
-      case ShoppingListActions.UPDATE_SHIRTCATEGORY:
+    case ShoppingListActions.UPDATE_SHIRTCATEGORY:
       // const shirtCategory = state.shirtcategories[action.payload.index];
-      const shirtCategory = state.shirtcategories[state.editedShirtCategoryIndex];
+      const shirtCategory =
+        state.shirtcategories[state.editedShirtCategoryIndex];
       const updatedShirtCategory = {
         ...shirtCategory,
-        ...action.payload.shirtCategory,
+        ...action.payload.shirtCategory
       };
       const shirtcategories = [...state.shirtcategories];
       // shirtcategories[action.payload.index] = updatedShirtCategory;
@@ -51,7 +49,7 @@ export function shoppingListReducer(
         editedShirtCategory: null,
         editedShirtCategoryIndex: -1
       };
-      case ShoppingListActions.DELETE_SHIRTCATEGORY:
+    case ShoppingListActions.DELETE_SHIRTCATEGORY:
       const oldShirtcategories = [...state.shirtcategories];
       // oldShirtcategories.splice(action.payload, 1);
       oldShirtcategories.splice(state.editedShirtCategoryIndex, 1);
@@ -61,14 +59,14 @@ export function shoppingListReducer(
         editedShirtCategory: null,
         editedShirtCategoryIndex: -1
       };
-      case ShoppingListActions.START_EDIT:
-      const editedShirtCategory = {...state.shirtcategories[action.payload]};
+    case ShoppingListActions.START_EDIT:
+      const editedShirtCategory = { ...state.shirtcategories[action.payload] };
       return {
         ...state,
         editedShirtCategory: editedShirtCategory,
         editedShirtCategoryIndex: action.payload
       };
-      case ShoppingListActions.STOP_EDIT:
+    case ShoppingListActions.STOP_EDIT:
       return {
         ...state,
         editedShirtCategory: null,

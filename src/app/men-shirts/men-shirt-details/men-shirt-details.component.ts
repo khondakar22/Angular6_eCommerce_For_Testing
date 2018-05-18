@@ -6,7 +6,8 @@ import { ParamsInheritanceStrategy } from '@angular/router/src/router_state';
 import { Store } from '@ngrx/store';
 // import { ShirtCategories } from '../../shared/shirtcategories.model';
 import * as ShoppingListActions from '../../shopping-list/ngrx-store/shopping-list.action';
-import * as fromShoppingList from '../../shopping-list/ngrx-store/shopping-list.reducers';
+// import * as fromShoppingList from '../../shopping-list/ngrx-store/shopping-list.reducers';
+import * as fromApp from '../../ngrx-app-store/app.reducers';
 @Component({
   selector: 'app-men-shirt-details',
   templateUrl: './men-shirt-details.component.html',
@@ -29,7 +30,7 @@ export class MenShirtDetailsComponent implements OnInit {
     private menShirtsService: MenShirtsService,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromShoppingList.Appstate>
+    private store: Store<fromApp.Appstate>
   ) {}
 
   ngOnInit() {
