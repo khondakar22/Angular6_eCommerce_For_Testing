@@ -1,10 +1,11 @@
 import { MenShirts } from './mensirts.model';
-import { EventEmitter, Injectable } from '@angular/core';
+// import { EventEmitter, Injectable } from '@angular/core';
 import { ShirtCategories } from '../shared/shirtcategories.model';
-import { ShoppingListService } from '../shopping-list/shopping-list.service';
+// import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Subject } from 'rxjs/Subject';
-
-@Injectable()
+// import { Store } from '@ngrx/store';
+// import * as ShoppingListActions from '../shopping-list/ngrx-store/shopping-list.action';
+// @Injectable()
 export class MenShirtsService {
   // menShirtSelected = new EventEmitter<MenShirts>();
   shirtsItemChanged = new Subject<MenShirts[]>();
@@ -23,7 +24,8 @@ export class MenShirtsService {
     )
   ];
 
-  constructor(private slService: ShoppingListService) {}
+  // constructor(private slService: ShoppingListService, private store: Store<{ shoppingList: { shirtcategories: ShirtCategories[] } }>) {}
+  constructor() {}
 
   setShirts(mShirts: MenShirts[]) {
     this.menShirts = mShirts;
@@ -32,9 +34,11 @@ export class MenShirtsService {
   getMenShirts() {
     return this.menShirts.slice();
   }
-  addShirtCategoriesToShoppingList(shirtcategories: ShirtCategories[]) {
-    this.slService.addShirtscategories(shirtcategories);
-  }
+  // addShirtCategoriesToShoppingList(shirtcategories: ShirtCategories[]) {
+  //   // this.slService.addShirtscategories(shirtcategories);
+  //   this.store.dispatch(new ShoppingListActions.AddShirtCategories(shirtcategories));
+
+  // }
   getMenShirt(index: number) {
     return this.menShirts[index];
   }

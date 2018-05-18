@@ -3,7 +3,10 @@ import { MenShirts } from '../mensirts.model';
 import { MenShirtsService } from '../men-shirts.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ParamsInheritanceStrategy } from '@angular/router/src/router_state';
-
+import { Store } from '@ngrx/store';
+// import { ShirtCategories } from '../../shared/shirtcategories.model';
+import * as ShoppingListActions from '../../shopping-list/ngrx-store/shopping-list.action';
+import * as fromShoppingList from '../../shopping-list/ngrx-store/shopping-list.reducers';
 @Component({
   selector: 'app-men-shirt-details',
   templateUrl: './men-shirt-details.component.html',
@@ -15,10 +18,18 @@ export class MenShirtDetailsComponent implements OnInit {
   id: number;
   //  To fecth the Id need Activated Route
 
+  // constructor(
+  //   private menShirtsService: MenShirtsService,
+  //   private route: ActivatedRoute,
+  //   private router: Router,
+  //   private store: Store<{ shoppingList: { shirtcategories: ShirtCategories[] } }>
+  // ) {}
+
   constructor(
     private menShirtsService: MenShirtsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<fromShoppingList.Appstate>
   ) {}
 
   ngOnInit() {
@@ -29,9 +40,10 @@ export class MenShirtDetailsComponent implements OnInit {
     });
   }
   onAddtoShoppingList() {
-    this.menShirtsService.addShirtCategoriesToShoppingList(
-      this.shirts.shirtcategories
-    );
+    // this.menShirtsService.addShirtCategoriesToShoppingList(
+    //   this.shirts.shirtcategories
+    // );
+    this.store.dispatch(new ShoppingListActions.AddShirtCategories(this.shirts.shirtcategories));
   }
 
   onEditShirts() {

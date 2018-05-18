@@ -11,7 +11,9 @@ import { ShirtCategories } from '../../shared/shirtcategories.model';
 import { ShoppingListService } from '../shopping-list.service';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-
+import { Store } from '@ngrx/store';
+import * as ShoppingListActions from '../ngrx-store/shopping-list.action';
+import * as fromShoppingList from '../ngrx-store/shopping-list.reducers';
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
@@ -24,23 +26,41 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   // @Output() shirtsAdded = new EventEmitter<ShirtCategories>();
   subscription: Subscription;
   editMode = false;
-  editedItemIndex: number;
+  // editedItemIndex: number;
   editeItem: ShirtCategories;
 
-  constructor(private slService: ShoppingListService) {}
+  // constructor(private slService: ShoppingListService,
+  //   private store: Store<{ shoppingList: { shirtcategories: ShirtCategories[] } }>) {}
+
+  constructor(private slService: ShoppingListService,
+    private store: Store<fromShoppingList.Appstate>) {}
 
   ngOnInit() {
-    this.subscription = this.slService.startedEditing.subscribe(
-      (index: number) => {
-        this.editedItemIndex = index;
-        this.editMode = true;
-        this.editeItem = this.slService.getShirtCategory(index);
-        this.slForm.setValue({
-          name: this.editeItem.name,
-          amount: this.editeItem.amount
-        });
+    this.subscription = this.store.select('shoppingList').subscribe(
+      data => {
+        if (data.editedShirtCategoryIndex > -1) {
+          this.editeItem = data.editedShirtCategory;
+          this.editMode = true;
+          this.slForm.setValue({
+            name: this.editeItem.name,
+            amount: this.editeItem.amount
+          });
+        } else {
+          this.editMode = false;
+        }
       }
     );
+    // this.subscription = this.slService.startedEditing.subscribe(
+    //   (index: number) => {
+    //     this.editedItemIndex = index;
+    //     this.editMode = true;
+    //     this.editeItem = this.slService.getShirtCategory(index);
+    //     this.slForm.setValue({
+    //       name: this.editeItem.name,
+    //       amount: this.editeItem.amount
+    //     });
+    //   }
+    // );
   }
 
   onSubmit(form: NgForm) {
@@ -50,9 +70,11 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     const newShirtCategory = new ShirtCategories(value.name, value.amount);
     // this.shirtsAdded.emit(newShirtCategory);
     if (this.editMode) {
-      this.slService.updateShirtCategory(this.editedItemIndex, newShirtCategory);
+      // this.slService.updateShirtCategory(this.editedItemIndex, newShirtCategory);
+      this.store.dispatch(new ShoppingListActions.UpdateShirtCategory({shirtCategory: newShirtCategory}));
     } else {
-      this.slService.addShirtCategories(newShirtCategory);
+      // this.slService.addShirtCategories(newShirtCategory);
+      this.store.dispatch(new ShoppingListActions.AddShirtCategoy(newShirtCategory));
     }
     this.editMode = false;
     form.reset();
@@ -63,11 +85,13 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     this.editMode = false;
   }
   onDelete() {
-    this.slService.deleteShirts(this.editedItemIndex);
+    // this.slService.deleteShirts(this.editedItemIndex);
+    this.store.dispatch(new ShoppingListActions.DeleteShirtCategory());
     this.onClear();
   }
 
   ngOnDestroy() {
+    this.store.dispatch(new ShoppingListActions.StopEdit());
     this.subscription.unsubscribe();
   }
 }

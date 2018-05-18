@@ -15,7 +15,7 @@ export class DataStorageService {
   ) {}
 
   storeShirts() {
-    const token = this.authService.getToken();
+    // const token = this.authService.getToken();
     // const header =  new HttpHeaders().set('Authorization', 'Bearer afdklasfladf');
     // return this.httpClient.put(
     //   'https://ng-ecommerce-angular6.firebaseio.com/menShirts.json',
@@ -27,18 +27,18 @@ export class DataStorageService {
     // );
     // This would be help for upload and download
     const req = new HttpRequest('PUT', 'https://ng-ecommerce-angular6.firebaseio.com/menShirts.json',
-    this.menShirtsService.getMenShirts(), {reportProgress: true, params: new HttpParams().set('auth', token) });
+    this.menShirtsService.getMenShirts(), {reportProgress: true});
     return this.httpClient.request(req);
   }
   getShirts() {
 
-      const token = this.authService.getToken();
+      // const token = this.authService.getToken();
     this.httpClient
       // .get<MenShirts[]>('https://ng-ecommerce-angular6.firebaseio.com/menShirts.json?auth=' + token)
       .get<MenShirts[]>('https://ng-ecommerce-angular6.firebaseio.com/menShirts.json', {
         observe: 'body',
         responseType: 'json',
-        params: new HttpParams().set('auth', token)
+        // params: new HttpParams().set('auth', token)
       })
       .pipe(
         map((menShirts) => {

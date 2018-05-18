@@ -8,7 +8,8 @@ import { HomeComponent } from './core/home/home.component';
 const appRoutes: Routes = [
   // { path: '', redirectTo: '/menshirts', pathMatch: 'full' },
   { path: '', component: HomeComponent },
-  { path: 'menshirts', loadChildren: './men-shirts/men-shirts.module#MenShirtsModule', canLoad: [AuthGuard] },
+  // { path: 'menshirts', loadChildren: './men-shirts/men-shirts.module#MenShirtsModule', canLoad: [AuthGuard] },
+  { path: 'menshirts', loadChildren: './men-shirts/men-shirts.module#MenShirtsModule' },
   { path: 'shopping-list', component: ShoppingListComponent },
 ];
 

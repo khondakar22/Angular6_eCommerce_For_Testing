@@ -11,19 +11,19 @@ export class ShoppingListService {
     new ShirtCategories('Half Seleve', 10)
   ];
 
-  getShirtcategories() {
-    return this.shirtcategories.slice();
-  }
+  // getShirtcategories() {
+  //   return this.shirtcategories.slice();
+  // }
 
   getShirtCategory(index: number) {
     return this.shirtcategories[index];
   }
 
-  addShirtCategories(shirtCategories: ShirtCategories) {
-    this.shirtcategories.push(shirtCategories);
-    // this.shirtsCategoriesChanged.emit(this.shirtcategories.slice());
-        this.shirtsCategoriesChanged.next(this.shirtcategories.slice());
-  }
+  // addShirtCategories(shirtCategories: ShirtCategories) {
+  //   this.shirtcategories.push(shirtCategories);
+  //   // this.shirtsCategoriesChanged.emit(this.shirtcategories.slice());
+  //       this.shirtsCategoriesChanged.next(this.shirtcategories.slice());
+  // }
   addShirtscategories(shirtCategories: ShirtCategories[]) {
     // for (const shirtItem of shirtCategories) {
     //     this.addShirtCategories(shirtItem);

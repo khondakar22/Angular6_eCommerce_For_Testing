@@ -8,6 +8,9 @@ import { MenShirtsService } from '../men-shirts/men-shirts.service';
 import { DataStorageService } from '../shared/data-storage.service';
 import { AuthService } from '../auth/auth.service';
 import { AuthGuard } from '../auth/auth-guard.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from '../shared/auth.interceptor';
+import { LogginInterceptor } from '../shared/loggin-inerceptor';
 
 @NgModule({
     declarations: [
@@ -27,7 +30,9 @@ import { AuthGuard } from '../auth/auth-guard.service';
         MenShirtsService,
         DataStorageService,
         AuthService,
-        AuthGuard
+        AuthGuard,
+        {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: LogginInterceptor, multi: true}
       ],
 })
 export class CoreModule {
