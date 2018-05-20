@@ -1,13 +1,13 @@
 import { MenShirts } from './mensirts.model';
-// import { EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ShirtCategories } from '../shared/shirtcategories.model';
-// import { ShoppingListService } from '../shopping-list/shopping-list.service';
+import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Subject } from 'rxjs/Subject';
-// import { Store } from '@ngrx/store';
-// import * as ShoppingListActions from '../shopping-list/ngrx-store/shopping-list.action';
-// @Injectable()
+import { Store } from '@ngrx/store';
+import * as ShoppingListActions from '../shopping-list/ngrx-store/shopping-list.action';
+@Injectable()
 export class MenShirtsService {
-  // menShirtSelected = new EventEmitter<MenShirts>();
+  menShirtSelected = new EventEmitter<MenShirts>();
   shirtsItemChanged = new Subject<MenShirts[]>();
   private menShirts: MenShirts[] = [
     new MenShirts(
@@ -24,8 +24,8 @@ export class MenShirtsService {
     )
   ];
 
-  // constructor(private slService: ShoppingListService, private store: Store<{ shoppingList: { shirtcategories: ShirtCategories[] } }>) {}
-  constructor() {}
+  constructor(private slService: ShoppingListService, private store: Store<{ shoppingList: { shirtcategories: ShirtCategories[] } }>) {}
+  // constructor() {}
 
   setShirts(mShirts: MenShirts[]) {
     this.menShirts = mShirts;
@@ -34,24 +34,24 @@ export class MenShirtsService {
   getMenShirts() {
     return this.menShirts.slice();
   }
-  // addShirtCategoriesToShoppingList(shirtcategories: ShirtCategories[]) {
-  //   // this.slService.addShirtscategories(shirtcategories);
-  //   this.store.dispatch(new ShoppingListActions.AddShirtCategories(shirtcategories));
+  addShirtCategoriesToShoppingList(shirtcategories: ShirtCategories[]) {
+    // this.slService.addShirtscategories(shirtcategories);
+    this.store.dispatch(new ShoppingListActions.AddShirtCategories(shirtcategories));
 
-  // }
-  // getMenShirt(index: number) {
-  //   return this.menShirts[index];
-  // }
-  // addShirtsItem(shirts: MenShirts) {
-  //   this.menShirts.push(shirts);
-  //   this.shirtsItemChanged.next(this.menShirts.slice());
-  // }
-  // updateShirtsItem(index: number, newShirts: MenShirts) {
-  //   this.menShirts[index] = newShirts;
-  //   this.shirtsItemChanged.next(this.menShirts.slice());
-  // }
-  // deleteShirtsItem(index: number) {
-  //   this.menShirts.splice(index, 1);
-  //   this.shirtsItemChanged.next(this.menShirts.slice());
-  // }
+  }
+  getMenShirt(index: number) {
+    return this.menShirts[index];
+  }
+  addShirtsItem(shirts: MenShirts) {
+    this.menShirts.push(shirts);
+    this.shirtsItemChanged.next(this.menShirts.slice());
+  }
+  updateShirtsItem(index: number, newShirts: MenShirts) {
+    this.menShirts[index] = newShirts;
+    this.shirtsItemChanged.next(this.menShirts.slice());
+  }
+  deleteShirtsItem(index: number) {
+    this.menShirts.splice(index, 1);
+    this.shirtsItemChanged.next(this.menShirts.slice());
+  }
 }

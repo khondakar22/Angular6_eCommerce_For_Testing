@@ -6,27 +6,29 @@ import { MenShirtsEditComponent } from './men-shirts-edit/men-shirts-edit.compon
 import { AuthGuard } from '../auth/auth-guard.service';
 import { MenShirtDetailsComponent } from './men-shirt-details/men-shirt-details.component';
 const menShirtsRoutes: Routes = [
-    {
-        path: '',
-        component: MenShirtsComponent,
-        children: [
-          { path: '', component: MenShirtsStartComponent },
-          { path: 'new', component: MenShirtsEditComponent, canActivate: [AuthGuard] },
-          { path: ':id', component: MenShirtDetailsComponent },
-          { path: ':id/edit', component: MenShirtsEditComponent, canActivate: [AuthGuard] }
-        ]
+  {
+    path: '',
+    component: MenShirtsComponent,
+    children: [
+      { path: '', component: MenShirtsStartComponent },
+      {
+        path: 'new',
+        component: MenShirtsEditComponent,
+        canActivate: [AuthGuard]
       },
+      { path: ':id', component: MenShirtDetailsComponent },
+      {
+        path: ':id/edit',
+        component: MenShirtsEditComponent,
+        canActivate: [AuthGuard]
+      }
+    ]
+  }
 ];
 
 @NgModule({
-imports : [
-    RouterModule.forChild(menShirtsRoutes)
-],
-exports: [RouterModule],
-providers: [
-    AuthGuard
-  ]
+  imports: [RouterModule.forChild(menShirtsRoutes)],
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
-export class MenShirtsRoutingModule {
-
-}
+export class MenShirtsRoutingModule {}

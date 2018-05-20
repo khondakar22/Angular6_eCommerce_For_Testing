@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
-import { MenShirtsService } from '../men-shirts.service';
 import { MenShirts } from '../mensirts.model';
 import { Subscription } from 'rxjs/Subscription';
 import * as MenShirtsActions from '../ngrx-store/men-shirts.actions';
@@ -18,13 +17,14 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
   editMode = false;
   menShirtsForm: FormGroup;
   subscription: Subscription;
-  constructor(private route: ActivatedRoute,
-              private menShirtService: MenShirtsService,
-              private router: Router,
-              private store: Store<fromMenShirts.FeatureState>) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<fromMenShirts.FeatureState>
+  ) {}
 
   ngOnInit() {
-  this.subscription =   this.route.params.subscribe((params: Params) => {
+    this.subscription = this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] != null;
       console.log(this.editMode);
@@ -32,21 +32,26 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
     });
   }
   onSubmit() {
-    const newShirtsItem = new MenShirts(this.menShirtsForm.value['name'],
-                                        this.menShirtsForm.value['description'],
-                                        this.menShirtsForm.value['imagePath'],
-                                        this.menShirtsForm.value['shirtCategires']);
+    const newShirtsItem = new MenShirts(
+      this.menShirtsForm.value['name'],
+      this.menShirtsForm.value['description'],
+      this.menShirtsForm.value['imagePath'],
+      this.menShirtsForm.value['shirtCategires']
+    );
     console.log(this.menShirtsForm);
     if (this.editMode) {
-      this.store.dispatch(new MenShirtsActions.UpdateMenShirts({index: this.id, updatedMenShirts: newShirtsItem}));
-      // this.menShirtService.updateShirtsItem(this.id, newShirtsItem);
+      this.store.dispatch(
+        new MenShirtsActions.UpdateMenShirts({
+          index: this.id,
+          updatedMenShirts: newShirtsItem
+        })
+      );
     } else {
-      // this.menShirtService.addShirtsItem(newShirtsItem);
       this.store.dispatch(new MenShirtsActions.AddMenShirts(newShirtsItem));
     }
     this.onCancle();
   }
-// above was the Modeling way and the below is the reactive way
+  // above was the Modeling way and the below is the reactive way
   // onSubmit() {
   //   if (this.editMode) {
   //     // this.menShirtService.updateShirtsItem(this.id, this.menShirtsForm.value);
@@ -58,13 +63,16 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
   //   this.onCancle();
   // }
   onCancle() {
-    this.router.navigate(['../'], {relativeTo: this.route});
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
   onAddShirtsItem() {
     (<FormArray>this.menShirtsForm.get('shirtCategires')).push(
       new FormGroup({
-        'name': new FormControl(null, Validators.required),
-        'amount': new FormControl(null, [ Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)] )
+        name: new FormControl(null, Validators.required),
+        amount: new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/)
+        ])
       })
     );
   }
@@ -78,32 +86,40 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
   private initForm() {
     let shirtsName = '';
     let shirtsImagePath = '';
-    let shirtsDescription = '' ;
-    const  menShirtsCategories = new FormArray([]);
+    let shirtsDescription = '';
+    const menShirtsCategories = new FormArray([]);
     if (this.editMode) {
-      // const shirts = this.menShirtService.getMenShirt(this.id);
-      this.store.select('menShirts').pipe(take(1)).subscribe((shirtState: fromMenShirts.State) => {
-        const shirts = shirtState.menShirts[this.id];
-        shirtsName = shirts.name;
-        shirtsImagePath = shirts.imagePath;
-        shirtsDescription = shirts.description;
-        if (shirts['shirtcategories']) {
-          for (const shirtCategory of shirts.shirtcategories) {
-            menShirtsCategories.push(
-              new FormGroup({
-              'name': new FormControl(shirtCategory.name,  Validators.required),
-              'amount': new FormControl(shirtCategory.amount, [ Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
-              })
-            );
+      this.store
+        .select('menShirts')
+        .pipe(take(1))
+        .subscribe((shirtState: fromMenShirts.State) => {
+          const shirts = shirtState.menShirts[this.id];
+          shirtsName = shirts.name;
+          shirtsImagePath = shirts.imagePath;
+          shirtsDescription = shirts.description;
+          if (shirts['shirtcategories']) {
+            for (const shirtCategory of shirts.shirtcategories) {
+              menShirtsCategories.push(
+                new FormGroup({
+                  name: new FormControl(
+                    shirtCategory.name,
+                    Validators.required
+                  ),
+                  amount: new FormControl(shirtCategory.amount, [
+                    Validators.required,
+                    Validators.pattern(/^[1-9]+[0-9]*$/)
+                  ])
+                })
+              );
+            }
           }
-        }
-      });
+        });
     }
     this.menShirtsForm = new FormGroup({
-      'name': new FormControl(shirtsName, Validators.required),
-      'imagePath': new FormControl(shirtsImagePath, Validators.required),
-      'description': new FormControl(shirtsDescription, Validators.required),
-      'shirtCategires': menShirtsCategories
+      name: new FormControl(shirtsName, Validators.required),
+      imagePath: new FormControl(shirtsImagePath, Validators.required),
+      description: new FormControl(shirtsDescription, Validators.required),
+      shirtCategires: menShirtsCategories
     });
   }
 

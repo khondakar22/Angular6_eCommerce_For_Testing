@@ -7,13 +7,11 @@ import { AppComponent } from './app.component';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 import { ApproutingModule } from './app-routing.module';
 
-
 import { SharedModule } from './shared/shared.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core/core.module';
 import { StoreModule } from '@ngrx/store';
-// import { shoppingListReducer } from './shopping-list/ngrx-store/shopping-list.reducers';
 import { reducers } from './ngrx-app-store/app.reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './auth/ngrx-store/auth.effects';
@@ -23,9 +21,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from './../environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     ApproutingModule,
@@ -34,7 +30,6 @@ import { environment } from './../environments/environment';
     ShoppingListModule,
     AuthModule,
     CoreModule,
-    // StoreModule.forRoot({shoppingList : shoppingListReducer})
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([AuthEffects]),
     StoreRouterConnectingModule,

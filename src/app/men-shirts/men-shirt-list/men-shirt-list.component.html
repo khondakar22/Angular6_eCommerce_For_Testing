@@ -6,15 +6,6 @@
 <hr>
 <div class="row">
   <div class="col-xs-12">
-    <!-- <app-men-shirt-item 
-    *ngFor="let shirtsEl of menShirts" 
-    [shirts]="shirtsEl"
-    (shirtsSelected)="onShirstSeleted(shirtsEl)"
-    ></app-men-shirt-item> -->
-    <app-men-shirt-item 
-    *ngFor="let shirtsEl of (menShirtsState | async).menShirts; let i = index" 
-    [shirts]="shirtsEl"
-    [index] ="i" 
-    ></app-men-shirt-item>
+    <app-men-shirt-item *ngFor="let shirtsEl of (menShirtsState | async).menShirts; let i = index" [shirts]="shirtsEl" [index]="i"></app-men-shirt-item>
   </div>
 </div>

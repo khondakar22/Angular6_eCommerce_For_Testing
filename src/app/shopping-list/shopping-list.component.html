@@ -1,15 +1,10 @@
 <div class="row">
   <div class="col-xs-10">
-    <!-- <app-shopping-edit (shirtsAdded)="onShirtsAdded($event)"></app-shopping-edit> -->
     <app-shopping-edit></app-shopping-edit>
-
     <hr>
     <ul class="list-group">
-      <a style="cursor: pointer" 
-      class="list-group-item" 
-      *ngFor="let shirtcategories of (shoppingListState | async).shirtcategories; let i = index"
-      (click)="onEditItem(i)"
-      >
+      <a style="cursor: pointer" class="list-group-item" *ngFor="let shirtcategories of (shoppingListState | async).shirtcategories; let i = index"
+        (click)="onEditItem(i)">
         {{shirtcategories.name}}({{shirtcategories.amount}})
       </a>
     </ul>

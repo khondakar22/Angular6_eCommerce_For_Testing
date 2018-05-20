@@ -11,10 +11,5 @@ export class MenShirtsComponent implements OnInit {
   selectedShirt: MenShirts;
   constructor(private menShirtsSrv: MenShirtsService) {}
 
-  ngOnInit() {
-  //   this.menShirtsSrv.menShirtSelected.subscribe((menShirts: MenShirts) => {
-  //     this.selectedShirt = menShirts;
-  //   });
-  //
-}
+  ngOnInit() {}
 }

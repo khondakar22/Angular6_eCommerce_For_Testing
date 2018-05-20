@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { MenShirts } from '../../mensirts.model';
-// import { MenShirtsService } from '../../men-shirts.service';
 @Component({
   selector: 'app-men-shirt-item',
   templateUrl: './men-shirt-item.component.html',
@@ -9,16 +8,8 @@ import { MenShirts } from '../../mensirts.model';
 export class MenShirtItemComponent implements OnInit {
   @Input() shirts: MenShirts;
   @Input() index: number;
-  // @Output() shirtsSelected = new EventEmitter<void>();
-
-  // constructor( private menShirtSrv: MenShirtsService) { }
 
   ngOnInit() {
   }
-// remove this method
-  // onSelected() {
-  //   // this.shirtsSelected.emit();
-  //   this.menShirtSrv.menShirtSelected.emit(this.shirts);
-  // }
 
 }

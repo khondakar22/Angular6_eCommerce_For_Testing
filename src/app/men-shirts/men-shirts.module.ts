@@ -15,23 +15,21 @@ import { EffectsModule } from '@ngrx/effects';
 import { MenShirtsEffects } from './ngrx-store/men-shirts.effects';
 
 @NgModule({
-    declarations: [
-        MenShirtsComponent,
-        MenShirtsStartComponent,
-        MenShirtListComponent,
-        MenShirtsEditComponent,
-        MenShirtDetailsComponent,
-        MenShirtItemComponent,
-    ],
-    imports: [
-        CommonModule,
-        ReactiveFormsModule,
-        MenShirtsRoutingModule,
-        SharedModule,
-        StoreModule.forFeature('menShirts', menShirtsReducers),
-        EffectsModule.forFeature([MenShirtsEffects])
-    ]
+  declarations: [
+    MenShirtsComponent,
+    MenShirtsStartComponent,
+    MenShirtListComponent,
+    MenShirtsEditComponent,
+    MenShirtDetailsComponent,
+    MenShirtItemComponent
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MenShirtsRoutingModule,
+    SharedModule,
+    StoreModule.forFeature('menShirts', menShirtsReducers),
+    EffectsModule.forFeature([MenShirtsEffects])
+  ]
 })
-export class MenShirtsModule {
-
-}
+export class MenShirtsModule {}

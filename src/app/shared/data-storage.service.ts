@@ -4,7 +4,12 @@ import { MenShirtsService } from '../men-shirts/men-shirts.service';
 import { MenShirts } from '../men-shirts/mensirts.model';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
-import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpRequest
+} from '@angular/common/http';
 
 @Injectable()
 export class DataStorageService {
@@ -26,22 +31,28 @@ export class DataStorageService {
     //   }
     // );
     // This would be help for upload and download
-    const req = new HttpRequest('PUT', 'https://ng-ecommerce-angular6.firebaseio.com/menShirts.json',
-    this.menShirtsService.getMenShirts(), {reportProgress: true});
+    const req = new HttpRequest(
+      'PUT',
+      'https://ng-ecommerce-angular6.firebaseio.com/menShirts.json',
+      this.menShirtsService.getMenShirts(),
+      { reportProgress: true }
+    );
     return this.httpClient.request(req);
   }
   getShirts() {
-
-      // const token = this.authService.getToken();
+    // const token = this.authService.getToken();
     this.httpClient
       // .get<MenShirts[]>('https://ng-ecommerce-angular6.firebaseio.com/menShirts.json?auth=' + token)
-      .get<MenShirts[]>('https://ng-ecommerce-angular6.firebaseio.com/menShirts.json', {
-        observe: 'body',
-        responseType: 'json',
-        // params: new HttpParams().set('auth', token)
-      })
+      .get<MenShirts[]>(
+        'https://ng-ecommerce-angular6.firebaseio.com/menShirts.json',
+        {
+          observe: 'body',
+          responseType: 'json'
+          // params: new HttpParams().set('auth', token)
+        }
+      )
       .pipe(
-        map((menShirts) => {
+        map(menShirts => {
           console.log(menShirts);
           for (const shirt of menShirts) {
             if (!shirt['shirtcategories']) {
