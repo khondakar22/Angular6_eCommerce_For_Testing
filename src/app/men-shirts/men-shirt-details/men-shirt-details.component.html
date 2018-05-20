@@ -1,12 +1,12 @@
 <div class="row">
   <div class="col-xs-12">
-    <img [src]="shirts.imagePath" alt="{{shirts.name}}" class="img-responsive">
+    <img [src]="(shirtsState | async).menShirts[id].imagePath" alt="{{(shirtsState | async).menShirts[id].name}}" class="img-responsive">
   </div>
 </div>
 
 <div class="row">
   <div class="col-xs-12">
-    <h1> {{shirts.name}}</h1>
+    <h1> {{(shirtsState | async).menShirts[id].name}}</h1>
   </div>
 </div>
 <div class="row">
@@ -25,7 +25,7 @@
 </div>
 <div class="row">
   <div class="col-xs-12">
-    {{shirts.description}}
+    {{(shirtsState | async).menShirts[id].description}}
   </div>
 </div>
 <div class="row">
@@ -33,7 +33,7 @@
   <ul class="list-group">
     <li 
     class="list-group-item"
-    *ngFor ="let shirtscategories of shirts.shirtcategories ">
+    *ngFor ="let shirtscategories of (shirtsState | async).menShirts[id].shirtcategories ">
       {{shirtscategories.name}}-{{shirtscategories.amount}}Pcs
     </li>
   </ul>

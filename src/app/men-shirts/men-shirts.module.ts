@@ -9,6 +9,10 @@ import { MenShirtDetailsComponent } from './men-shirt-details/men-shirt-details.
 import { MenShirtItemComponent } from './men-shirt-list/men-shirt-item/men-shirt-item.component';
 import { MenShirtsRoutingModule } from './men-shirts-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { StoreModule } from '@ngrx/store';
+import { menShirtsReducers } from './ngrx-store/men-shirts.reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { MenShirtsEffects } from './ngrx-store/men-shirts.effects';
 
 @NgModule({
     declarations: [
@@ -23,7 +27,9 @@ import { SharedModule } from '../shared/shared.module';
         CommonModule,
         ReactiveFormsModule,
         MenShirtsRoutingModule,
-        SharedModule
+        SharedModule,
+        StoreModule.forFeature('menShirts', menShirtsReducers),
+        EffectsModule.forFeature([MenShirtsEffects])
     ]
 })
 export class MenShirtsModule {

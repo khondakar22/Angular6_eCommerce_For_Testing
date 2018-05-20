@@ -8,6 +8,11 @@ import { Store } from '@ngrx/store';
 import * as ShoppingListActions from '../../shopping-list/ngrx-store/shopping-list.action';
 // import * as fromShoppingList from '../../shopping-list/ngrx-store/shopping-list.reducers';
 import * as fromApp from '../../ngrx-app-store/app.reducers';
+import * as fromMenShirts from '../ngrx-store/men-shirts.reducers';
+import * as MenShirtsAction from '../ngrx-store/men-shirts.actions';
+import { Observable } from 'rxjs/Observable';
+import { take } from 'rxjs/operators';
+import { Subscriber } from 'rxjs/Subscriber';
 @Component({
   selector: 'app-men-shirt-details',
   templateUrl: './men-shirt-details.component.html',
@@ -15,7 +20,8 @@ import * as fromApp from '../../ngrx-app-store/app.reducers';
 })
 export class MenShirtDetailsComponent implements OnInit {
   // @Input() shirts: MenShirts;
-  shirts: MenShirts;
+  // shirts: MenShirts;
+  shirtsState: Observable<fromMenShirts.State>;
   id: number;
   //  To fecth the Id need Activated Route
 
@@ -30,21 +36,26 @@ export class MenShirtDetailsComponent implements OnInit {
     private menShirtsService: MenShirtsService,
     private route: ActivatedRoute,
     private router: Router,
-    private store: Store<fromApp.Appstate>
+    private store: Store<fromMenShirts.FeatureState>
   ) {}
 
   ngOnInit() {
     // const id = this.route.snapshot.params['id'];
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
-      this.shirts = this.menShirtsService.getMenShirt(this.id);
+      // this.shirts = this.menShirtsService.getMenShirt(this.id);
+      this.shirtsState = this.store.select('menShirts');
     });
   }
   onAddtoShoppingList() {
     // this.menShirtsService.addShirtCategoriesToShoppingList(
     //   this.shirts.shirtcategories
     // );
-    this.store.dispatch(new ShoppingListActions.AddShirtCategories(this.shirts.shirtcategories));
+    this.store.select('menShirts').pipe(take(1)).subscribe(
+      (shirtsState: fromMenShirts.State) => {
+        this.store.dispatch(new ShoppingListActions.AddShirtCategories(shirtsState.menShirts[this.id].shirtcategories));
+      }
+    );
   }
 
   onEditShirts() {
@@ -53,7 +64,8 @@ export class MenShirtDetailsComponent implements OnInit {
   }
 
   onDeleteShirts() {
-    this.menShirtsService.deleteShirtsItem(this.id);
+    // this.menShirtsService.deleteShirtsItem(this.id);
+    this.store.dispatch(new MenShirtsAction.DeleteMenShirts(this.id));
     this.router.navigate(['/menshirts']);
   }
 }

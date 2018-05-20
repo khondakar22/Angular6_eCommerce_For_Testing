@@ -12,7 +12,7 @@
     (shirtsSelected)="onShirstSeleted(shirtsEl)"
     ></app-men-shirt-item> -->
     <app-men-shirt-item 
-    *ngFor="let shirtsEl of menShirts; let i = index" 
+    *ngFor="let shirtsEl of (menShirtsState | async).menShirts; let i = index" 
     [shirts]="shirtsEl"
     [index] ="i" 
     ></app-men-shirt-item>

@@ -5,6 +5,8 @@ import { Store } from '@ngrx/store';
 import * as fromApp from '../ngrx-app-store/app.reducers';
 import * as AuthActions from '../auth/ngrx-store/auth.actions';
 
+// Are not usign this service more
+
 @Injectable()
 export class AuthService {
     // token: string;
@@ -58,6 +60,5 @@ export class AuthService {
     logout() {
         firebase.auth().signOut();
         // this.token = null;
-        this.store.dispatch(new AuthActions.Logout());
     }
 }

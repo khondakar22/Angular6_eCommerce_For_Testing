@@ -39,19 +39,19 @@ export class MenShirtsService {
   //   this.store.dispatch(new ShoppingListActions.AddShirtCategories(shirtcategories));
 
   // }
-  getMenShirt(index: number) {
-    return this.menShirts[index];
-  }
-  addShirtsItem(shirts: MenShirts) {
-    this.menShirts.push(shirts);
-    this.shirtsItemChanged.next(this.menShirts.slice());
-  }
-  updateShirtsItem(index: number, newShirts: MenShirts) {
-    this.menShirts[index] = newShirts;
-    this.shirtsItemChanged.next(this.menShirts.slice());
-  }
-  deleteShirtsItem(index: number) {
-    this.menShirts.splice(index, 1);
-    this.shirtsItemChanged.next(this.menShirts.slice());
-  }
+  // getMenShirt(index: number) {
+  //   return this.menShirts[index];
+  // }
+  // addShirtsItem(shirts: MenShirts) {
+  //   this.menShirts.push(shirts);
+  //   this.shirtsItemChanged.next(this.menShirts.slice());
+  // }
+  // updateShirtsItem(index: number, newShirts: MenShirts) {
+  //   this.menShirts[index] = newShirts;
+  //   this.shirtsItemChanged.next(this.menShirts.slice());
+  // }
+  // deleteShirtsItem(index: number) {
+  //   this.menShirts.splice(index, 1);
+  //   this.shirtsItemChanged.next(this.menShirts.slice());
+  // }
 }

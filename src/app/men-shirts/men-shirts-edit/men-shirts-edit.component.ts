@@ -4,7 +4,10 @@ import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { MenShirtsService } from '../men-shirts.service';
 import { MenShirts } from '../mensirts.model';
 import { Subscription } from 'rxjs/Subscription';
-
+import * as MenShirtsActions from '../ngrx-store/men-shirts.actions';
+import * as fromMenShirts from '../ngrx-store/men-shirts.reducers';
+import { Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 @Component({
   selector: 'app-men-shirts-edit',
   templateUrl: './men-shirts-edit.component.html',
@@ -17,7 +20,8 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   constructor(private route: ActivatedRoute,
               private menShirtService: MenShirtsService,
-              private router: Router) {}
+              private router: Router,
+              private store: Store<fromMenShirts.FeatureState>) {}
 
   ngOnInit() {
   this.subscription =   this.route.params.subscribe((params: Params) => {
@@ -27,28 +31,32 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
       this.initForm();
     });
   }
-  // onSubmit() {
-  //   const newShirtsItem = new MenShirts(this.menShirtsForm.value['name'],
-  //                                       this.menShirtsForm.value['description'],
-  //                                       this.menShirtsForm.value['imagePath'],
-  //                                       this.menShirtsForm.value['shirtCategires']);
-  //   console.log(this.menShirtsForm);
-  //   if (this.editMode) {
-  //     this.menShirtService.updateShirtsItem(this.id, newShirtsItem);
-  //   } else {
-  //     this.menShirtService.addShirtsItem(newShirtsItem);
-  //   }
-  //   this.onCancle();
-  // }
-// above was the Modeling way and the below is the reactive way
   onSubmit() {
+    const newShirtsItem = new MenShirts(this.menShirtsForm.value['name'],
+                                        this.menShirtsForm.value['description'],
+                                        this.menShirtsForm.value['imagePath'],
+                                        this.menShirtsForm.value['shirtCategires']);
+    console.log(this.menShirtsForm);
     if (this.editMode) {
-      this.menShirtService.updateShirtsItem(this.id, this.menShirtsForm.value);
+      this.store.dispatch(new MenShirtsActions.UpdateMenShirts({index: this.id, updatedMenShirts: newShirtsItem}));
+      // this.menShirtService.updateShirtsItem(this.id, newShirtsItem);
     } else {
-      this.menShirtService.addShirtsItem(this.menShirtsForm.value);
+      // this.menShirtService.addShirtsItem(newShirtsItem);
+      this.store.dispatch(new MenShirtsActions.AddMenShirts(newShirtsItem));
     }
     this.onCancle();
   }
+// above was the Modeling way and the below is the reactive way
+  // onSubmit() {
+  //   if (this.editMode) {
+  //     // this.menShirtService.updateShirtsItem(this.id, this.menShirtsForm.value);
+  //     this.store.dispatch(new MenShirtsActions.UpdateMenShirts({index: this.id, updatedMenShirts: this.menShirtsForm.value}));
+  //   } else {
+  //     // this.menShirtService.addShirtsItem(this.menShirtsForm.value);
+  //     this.store.dispatch(new MenShirtsActions.AddMenShirts(this.menShirtsForm.value));
+  //   }
+  //   this.onCancle();
+  // }
   onCancle() {
     this.router.navigate(['../'], {relativeTo: this.route});
   }
@@ -73,21 +81,23 @@ export class MenShirtsEditComponent implements OnInit, OnDestroy {
     let shirtsDescription = '' ;
     const  menShirtsCategories = new FormArray([]);
     if (this.editMode) {
-      const shirts = this.menShirtService.getMenShirt(this.id);
-      shirtsName = shirts.name;
-      shirtsImagePath = shirts.imagePath;
-      shirtsDescription = shirts.description;
-      if (shirts['shirtcategories']) {
-        for (const shirtCategory of shirts.shirtcategories) {
-          menShirtsCategories.push(
-            new FormGroup({
-            'name': new FormControl(shirtCategory.name,  Validators.required),
-            'amount': new FormControl(shirtCategory.amount, [ Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
-            })
-          );
+      // const shirts = this.menShirtService.getMenShirt(this.id);
+      this.store.select('menShirts').pipe(take(1)).subscribe((shirtState: fromMenShirts.State) => {
+        const shirts = shirtState.menShirts[this.id];
+        shirtsName = shirts.name;
+        shirtsImagePath = shirts.imagePath;
+        shirtsDescription = shirts.description;
+        if (shirts['shirtcategories']) {
+          for (const shirtCategory of shirts.shirtcategories) {
+            menShirtsCategories.push(
+              new FormGroup({
+              'name': new FormControl(shirtCategory.name,  Validators.required),
+              'amount': new FormControl(shirtCategory.amount, [ Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)])
+              })
+            );
+          }
         }
-      }
-
+      });
     }
     this.menShirtsForm = new FormGroup({
       'name': new FormControl(shirtsName, Validators.required),
